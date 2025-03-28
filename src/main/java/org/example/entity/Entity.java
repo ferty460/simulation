@@ -1,7 +1,5 @@
-package org.example;
+package org.example.entity;
 
 public abstract class Entity {
-
-
 
 }

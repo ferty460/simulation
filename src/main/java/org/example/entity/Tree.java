@@ -1,4 +1,5 @@
-package org.example;
+package org.example.entity;
 
 public class Tree extends Entity {
+
 }

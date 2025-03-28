@@ -1,4 +1,6 @@
-package org.example;
+package org.example.entity.creature;
+
+import org.example.entity.Entity;
 
 public abstract class Creature extends Entity {
 
