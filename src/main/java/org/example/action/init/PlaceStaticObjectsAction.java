@@ -9,6 +9,7 @@ public class PlaceStaticObjectsAction extends PlaceEntitiesAction {
         return entityFactory.createRandomStaticEntity();
     }
 
+    // 15% of the map is occupied by static objects
     @Override
     protected double getDensityFactor() {
         return 0.15;

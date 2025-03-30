@@ -10,8 +10,11 @@ import java.util.List;
 
 public class Main {
 
+    private static final int MAP_ROWS = 10;
+    private static final int MAP_COLUMNS = 10;
+
     public static void main(String[] args) {
-        WorldMap map = new WorldMap(10, 10);
+        WorldMap map = new WorldMap(MAP_ROWS, MAP_COLUMNS);
         Renderer renderer = new ConsoleRenderer();
 
         List<Action> initActions = List.of(

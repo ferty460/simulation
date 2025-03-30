@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.entity.Entity;
+import org.example.entity.creature.Creature;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,10 +17,6 @@ public class WorldMap {
         this.width = width;
         this.height = height;
         this.entities = new HashMap<>();
-    }
-
-    public boolean isEmptyBlock(Coordinates coordinates) {
-        return !entities.containsKey(coordinates);
     }
 
     public List<Coordinates> getEmptyBlocks() {
@@ -45,6 +42,17 @@ public class WorldMap {
         Coordinates coordinates = getEmptyBlocks().get(randomBlock);
 
         putEntityAt(coordinates, entity);
+    }
+
+    public boolean isEmptyBlock(Coordinates coordinates) {
+        return !entities.containsKey(coordinates);
+    }
+
+    public List<Creature> getCreatures() {
+        return entities.values().stream()
+                .filter(entity -> entity instanceof Creature)
+                .map(entity -> (Creature) entity)
+                .toList();
     }
 
     public int getWidth() {
