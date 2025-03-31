@@ -1,5 +1,7 @@
 package org.example.entity.creature;
 
+import org.example.behavior.PredatorBehavior;
+
 public class Predator extends Creature {
 
     private static final int DEFAULT_SPEED = 4;
@@ -9,7 +11,7 @@ public class Predator extends Creature {
     private final int attack;
 
     public Predator(int speed, double health, int attack) {
-        super(speed, health);
+        super(speed, health, new PredatorBehavior());
         this.attack = attack;
     }
 
