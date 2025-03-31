@@ -32,6 +32,13 @@ public class WorldMap {
         return Optional.ofNullable(entities.get(coordinates));
     }
 
+    public Optional<Coordinates> getCoordinatesOfEntity(Entity entity) {
+        return entities.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(entity))
+                .map(Map.Entry::getKey)
+                .findFirst();
+    }
+
     public void putEntityAt(Coordinates coordinates, Entity entity) {
         entities.put(coordinates, entity);
     }
@@ -42,6 +49,10 @@ public class WorldMap {
         Coordinates coordinates = getEmptyBlocks().get(randomBlock);
 
         putEntityAt(coordinates, entity);
+    }
+
+    public void removeEntityAt(Coordinates coordinates) {
+        entities.remove(coordinates);
     }
 
     public boolean isEmptyBlock(Coordinates coordinates) {

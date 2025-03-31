@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.action.Action;
+import org.example.action.turn.MoveAction;
 import org.example.action.init.PlaceCreaturesAction;
 import org.example.action.init.PlaceStaticObjectsAction;
 import org.example.renderer.ConsoleRenderer;
@@ -22,7 +23,11 @@ public class Main {
                 new PlaceCreaturesAction()
         );
 
-        Simulation simulation = new Simulation(map, renderer, initActions);
+        List<Action> turnActions = List.of(
+                new MoveAction()
+        );
+
+        Simulation simulation = new Simulation(map, renderer, initActions, turnActions);
         simulation.start();
     }
 

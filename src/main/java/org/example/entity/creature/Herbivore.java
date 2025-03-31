@@ -13,9 +13,4 @@ public class Herbivore extends Creature {
         this(DEFAULT_SPEED, DEFAULT_HEALTH);
     }
 
-    @Override
-    public void makeMove() {
-
-    }
-
 }

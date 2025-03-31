@@ -1,5 +1,5 @@
 package org.example;
 
-public record Coordinates(int row, int col) {
+public record Coordinates(int row, int column) {
 
 }

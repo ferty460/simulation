@@ -17,9 +17,4 @@ public class Predator extends Creature {
         this(DEFAULT_SPEED, DEFAULT_HEALTH, DEFAULT_ATTACK);
     }
 
-    @Override
-    public void makeMove() {
-
-    }
-
 }
