@@ -10,13 +10,12 @@ public class PredatorBehavior extends CreatureBehavior {
 
     @Override
     protected Optional<Coordinates> findNearestTarget(WorldMap map, Coordinates from) {
-        // todo
         return Optional.empty();
     }
 
     @Override
-    protected void moveToTarget(Creature creature, Coordinates from, Coordinates to, WorldMap map) {
-        // todo
+    protected void interact(Creature creature, Coordinates coordsOfInteractedEntity, WorldMap map) {
+
     }
 
 }

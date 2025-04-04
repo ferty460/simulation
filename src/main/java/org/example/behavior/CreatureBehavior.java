@@ -15,13 +15,30 @@ public abstract class CreatureBehavior implements Behavior {
             return;
         }
 
-        findNearestTarget(map, from).ifPresent(
-                to -> moveToTarget(creature, from, to, map)
+        findNearestTarget(map, from).ifPresent(to -> {
+                moveToTarget(creature, from, to, map);
+                interact(creature, to, map);
+            }
         );
     }
 
     protected abstract Optional<Coordinates> findNearestTarget(WorldMap map, Coordinates from);
 
-    protected abstract void moveToTarget(Creature creature, Coordinates from, Coordinates to, WorldMap map);
+    private void moveToTarget(Creature creature, Coordinates from, Coordinates to, WorldMap map) {
+        /*
+        PathFinder.findPathBFS(map, from, to).ifPresent(path -> {
+            // если цель не рядом
+            if (path.size() > 1) {
+                map.removeEntityAt(from);
+                map.putEntityAt(nextMove, creature);
+            }
+        });
+        */
+
+        map.removeEntityAt(from);
+        map.putEntityAt(to, creature);
+    }
+
+    protected abstract void interact(Creature interactingCreature, Coordinates coordsOfInteractedEntity, WorldMap map);
 
 }

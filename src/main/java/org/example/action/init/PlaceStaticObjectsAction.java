@@ -1,8 +1,13 @@
 package org.example.action.init;
 
 import org.example.entity.Entity;
+import org.example.entity.EntityFactory;
 
 public class PlaceStaticObjectsAction extends PlaceEntitiesAction {
+
+    public PlaceStaticObjectsAction(EntityFactory factory) {
+        super(factory);
+    }
 
     @Override
     protected Entity createEntity() {

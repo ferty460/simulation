@@ -9,8 +9,8 @@ public abstract class PlaceEntitiesAction implements Action {
 
     protected final EntityFactory entityFactory;
 
-    protected PlaceEntitiesAction() {
-        this.entityFactory = new EntityFactory();
+    protected PlaceEntitiesAction(EntityFactory factory) {
+        this.entityFactory = factory;
     }
 
     @Override

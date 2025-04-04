@@ -6,16 +6,19 @@ import org.example.entity.*;
 import org.example.entity.creature.Creature;
 import org.example.entity.creature.Herbivore;
 import org.example.entity.creature.Predator;
+import org.example.entity.static_object.Grass;
+import org.example.entity.static_object.Rock;
+import org.example.entity.static_object.Tree;
 
 public class ConsoleRenderer implements Renderer {
 
     private static final String EMPTY_BLOCK = " __ ";
 
-    private static final String GRASS_SPRITE = "\uD83C\uDF3F";
-    private static final String ROCK_SPRITE = "\uD83E\uDEA8";
-    private static final String TREE_SPRITE = "\uD83C\uDF33";
+    private static final String TREE_SPRITE      = "\uD83C\uDF33";
+    private static final String GRASS_SPRITE     = "\uD83C\uDF3F";
+    private static final String ROCK_SPRITE      = "\uD83E\uDEA8";
     private static final String HERBIVORE_SPRITE = "\uD83E\uDD8C";
-    private static final String PREDATOR_SPRITE = "\uD83E\uDD81";
+    private static final String PREDATOR_SPRITE  = "\uD83E\uDD81";
 
     @Override
     public void render(WorldMap map) {
@@ -56,7 +59,7 @@ public class ConsoleRenderer implements Renderer {
             throw new IllegalArgumentException("Unknown Entity: " + entity);
         }
 
-        return " " + entitySprite + " ";
+        return String.format(" %s ", entitySprite);
     }
 
     private String getSpriteForCreature(Creature creature) {

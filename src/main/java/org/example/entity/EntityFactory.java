@@ -1,37 +1,46 @@
 package org.example.entity;
 
 import org.example.entity.creature.Creature;
-import org.example.entity.creature.Herbivore;
-import org.example.entity.creature.Predator;
 
+import java.util.List;
 import java.util.Random;
 
 public class EntityFactory {
 
-    private static final int STATIC_ENTITY_NUM = 3;
-    private static final int ROCK = 0;
-    private static final int GRASS = 1;
+    private final Random rand = new Random();
+    private final List<Class<? extends Entity>> staticEntityTypes;
+    private final List<Class<? extends Creature>> creatureTypes;
 
-    private final Random rand;
-
-    public EntityFactory() {
-        this.rand = new Random();
+    public EntityFactory(
+            List<Class<? extends Entity>> staticEntityTypes,
+            List<Class<? extends Creature>> creatureTypes
+    ) {
+        this.staticEntityTypes = staticEntityTypes;
+        this.creatureTypes = creatureTypes;
     }
 
     public Entity createRandomStaticEntity() {
-        return switch (rand.nextInt(STATIC_ENTITY_NUM)) {
-            case ROCK -> new Rock();
-            case GRASS -> new Grass();
-            default -> new Tree();
-        };
+        if (staticEntityTypes.isEmpty()) {
+            throw new IllegalStateException("No static entities registered");
+        }
+        return createInstance(staticEntityTypes);
     }
 
     public Creature createRandomCreature() {
-        if (rand.nextBoolean()) {
-            return new Herbivore();
+        if (creatureTypes.isEmpty()) {
+            throw new IllegalStateException("No creatures registered");
         }
+        return createInstance(creatureTypes);
+    }
 
-        return new Predator();
+    private <T> T createInstance(List<Class<? extends T>> types) {
+        try {
+            return types.get(rand.nextInt(types.size()))
+                    .getDeclaredConstructor()
+                    .newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create instance", e);
+        }
     }
 
 }
