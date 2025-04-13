@@ -11,7 +11,6 @@ public class PathFinderBFS implements PathFinder {
 
     private static final int ROW_INDEX = 0;
     private static final int COLUMN_INDEX = 1;
-    private static final int START_COORDINATES_INDEX = 0;
 
     private static final int[][] DIRECTIONS = {
             {-1, 0},  // TOP
@@ -56,7 +55,6 @@ public class PathFinderBFS implements PathFinder {
                     if (targetCondition.test(entityOpt.get())) {
                         List<Coordinates> newPath = new ArrayList<>(path);
                         newPath.add(neighbor);
-                        newPath.remove(START_COORDINATES_INDEX);
                         return newPath;
                     }
                     continue;

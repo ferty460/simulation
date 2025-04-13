@@ -6,6 +6,7 @@ import org.example.path_finder.PathFinderBFS;
 import org.example.WorldMap;
 import org.example.entity.creature.Creature;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class CreatureBehavior implements Behavior {
@@ -23,14 +24,19 @@ public abstract class CreatureBehavior implements Behavior {
             return;
         }
 
-        findNearestTarget(map, from).ifPresent(to -> {
-                moveToTarget(creature, from, to, map);
-                interact(creature, to, map);
+        findNearestTarget(map, from).ifPresent(path -> {
+            Coordinates target = path.get(path.size() - 1);
+
+            if (path.size() == 1) {
+                interact(from, target, map);
+            } else {
+                Coordinates nextMove = path.get(1);
+                moveToTarget(creature, from, nextMove, map);
             }
-        );
+        });
     }
 
-    protected abstract Optional<Coordinates> findNearestTarget(WorldMap map, Coordinates from);
+    protected abstract Optional<List<Coordinates>> findNearestTarget(WorldMap map, Coordinates from);
 
     private void moveToTarget(Creature creature, Coordinates from, Coordinates to, WorldMap map) {
         map.removeEntityAt(from);
@@ -38,7 +44,7 @@ public abstract class CreatureBehavior implements Behavior {
     }
 
     protected abstract void interact(
-            Creature interactingCreature,
+            Coordinates creatureCoords,
             Coordinates coordsOfInteractedEntity,
             WorldMap map
     );
