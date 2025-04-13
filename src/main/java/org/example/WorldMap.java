@@ -28,7 +28,7 @@ public class WorldMap {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Entity> getEntity(Coordinates coordinates) {
+    public Optional<Entity> getEntityAt(Coordinates coordinates) {
         return Optional.ofNullable(entities.get(coordinates));
     }
 
@@ -57,6 +57,12 @@ public class WorldMap {
 
     public boolean isEmptyBlock(Coordinates coordinates) {
         return !entities.containsKey(coordinates);
+    }
+
+    public boolean isWithinBounds(Coordinates coordinates) {
+        int row = coordinates.row();
+        int col = coordinates.column();
+        return row >= 0 && row < height && col >= 0 && col < width;
     }
 
     public List<Creature> getCreatures() {

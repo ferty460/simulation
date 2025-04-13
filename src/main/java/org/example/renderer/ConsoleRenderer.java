@@ -34,7 +34,7 @@ public class ConsoleRenderer implements Renderer {
                 if (map.isEmptyBlock(coordinates)) {
                     line.append(EMPTY_BLOCK);
                 } else {
-                    map.getEntity(coordinates).ifPresent(entity ->
+                    map.getEntityAt(coordinates).ifPresent(entity ->
                             line.append(getSpriteForEntity(entity))
                     );
                 }
