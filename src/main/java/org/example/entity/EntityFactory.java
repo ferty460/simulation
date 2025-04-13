@@ -2,45 +2,46 @@ package org.example.entity;
 
 import org.example.entity.creature.Creature;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class EntityFactory {
 
-    private final Random rand = new Random();
-    private final List<Class<? extends Entity>> staticEntityTypes;
-    private final List<Class<? extends Creature>> creatureTypes;
+    private final Map<Class<? extends Entity>, Double> staticEntityTypes;
+    private final Map<Class<? extends Creature>, Double> creatureTypes;
 
     public EntityFactory(
-            List<Class<? extends Entity>> staticEntityTypes,
-            List<Class<? extends Creature>> creatureTypes
+            Map<Class<? extends Entity>, Double> staticEntityTypes,
+            Map<Class<? extends Creature>, Double> creatureTypes
     ) {
         this.staticEntityTypes = staticEntityTypes;
         this.creatureTypes = creatureTypes;
     }
 
-    public Entity createRandomStaticEntity() {
-        if (staticEntityTypes.isEmpty()) {
-            throw new IllegalStateException("No static entities registered");
-        }
-        return createInstance(staticEntityTypes);
+    public List<Entity> createStaticEntities(int totalCount) {
+        return createEntities(staticEntityTypes, totalCount);
     }
 
-    public Creature createRandomCreature() {
-        if (creatureTypes.isEmpty()) {
-            throw new IllegalStateException("No creatures registered");
-        }
-        return createInstance(creatureTypes);
+    public List<Creature> createCreatures(int totalCount) {
+        return createEntities(creatureTypes, totalCount);
     }
 
-    private <T> T createInstance(List<Class<? extends T>> types) {
-        try {
-            return types.get(rand.nextInt(types.size()))
-                    .getDeclaredConstructor()
-                    .newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create instance", e);
+    private <T extends Entity> List<T> createEntities(Map<Class<? extends T>, Double> types, int totalCount) {
+        List<T> result = new ArrayList<>();
+        double totalWeight = types.values().stream().mapToDouble(Double::doubleValue).sum();
+
+        for (Map.Entry<Class<? extends T>, Double> entry : types.entrySet()) {
+            int count = (int) Math.round((entry.getValue() / totalWeight) * totalCount);
+            for (int i = 0; i < count; i++) {
+                try {
+                    result.add(entry.getKey().getDeclaredConstructor().newInstance());
+                } catch (Exception e) {
+                    throw new RuntimeException("Cannot create instance of " + entry.getKey(), e);
+                }
+            }
         }
+
+        Collections.shuffle(result);
+        return result;
     }
 
 }

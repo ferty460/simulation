@@ -3,21 +3,18 @@ package org.example.action.init;
 import org.example.entity.Entity;
 import org.example.entity.EntityFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaceCreaturesAction extends PlaceEntitiesAction {
 
-    public PlaceCreaturesAction(EntityFactory factory) {
-        super(factory);
+    public PlaceCreaturesAction(EntityFactory factory, double densityFactor) {
+        super(factory, densityFactor);
     }
 
     @Override
-    protected Entity createEntity() {
-        return entityFactory.createRandomCreature();
-    }
-
-    // 4% of the map is occupied by creatures
-    @Override
-    protected double getDensityFactor() {
-        return 0.04;
+    protected List<Entity> createEntities(int count) {
+        return new ArrayList<>(entityFactory.createCreatures(count));
     }
 
 }

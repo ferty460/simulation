@@ -3,21 +3,17 @@ package org.example.action.init;
 import org.example.entity.Entity;
 import org.example.entity.EntityFactory;
 
+import java.util.List;
+
 public class PlaceStaticObjectsAction extends PlaceEntitiesAction {
 
-    public PlaceStaticObjectsAction(EntityFactory factory) {
-        super(factory);
+    public PlaceStaticObjectsAction(EntityFactory factory, double densityFactor) {
+        super(factory, densityFactor);
     }
 
     @Override
-    protected Entity createEntity() {
-        return entityFactory.createRandomStaticEntity();
-    }
-
-    // 15% of the map is occupied by static objects
-    @Override
-    protected double getDensityFactor() {
-        return 0.15;
+    protected List<Entity> createEntities(int count) {
+        return entityFactory.createStaticEntities(count);
     }
 
 }
