@@ -23,14 +23,14 @@ public class Main {
     private static final int MAP_ROWS = 10;
     private static final int MAP_COLUMNS = 10;
 
+    private static final double CREATURES_DENSITY_FACTOR = 0.04;
+    private static final double STATIC_OBJECTS_DENSITY_FACTOR = 0.15;
+
     private static final double WEIGHT_ROCK = 0.3;
     private static final double WEIGHT_GRASS = 0.4;
     private static final double WEIGHT_TREE = 0.3;
     private static final double WEIGHT_HERBIVORE = 0.6;
     private static final double WEIGHT_PREDATOR = 0.4;
-
-    private static final double STATIC_OBJECTS_DENSITY_FACTOR = 0.15;
-    private static final double CREATURES_DENSITY_FACTOR = 0.04;
 
     public static void main(String[] args) {
         WorldMap map = new WorldMap(MAP_ROWS, MAP_COLUMNS);

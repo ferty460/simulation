@@ -4,9 +4,9 @@ import org.example.behavior.PredatorBehavior;
 
 public class Predator extends Creature {
 
-    private static final int DEFAULT_SPEED = 4;
-    private static final int DEFAULT_HEALTH = 4;
-    private static final int DEFAULT_ATTACK = 4;
+    private static final int DEFAULT_SPEED = 1;
+    private static final int DEFAULT_HEALTH = 100;
+    private static final int DEFAULT_ATTACK = 20;
 
     private final int attack;
 

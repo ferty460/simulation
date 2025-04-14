@@ -1,8 +1,10 @@
 package org.example.behavior;
 
 import org.example.Coordinates;
+import org.example.Logger;
 import org.example.WorldMap;
 import org.example.entity.Entity;
+import org.example.entity.creature.Herbivore;
 import org.example.entity.static_object.Grass;
 
 import java.util.List;
@@ -21,11 +23,21 @@ public class HerbivoreBehavior extends CreatureBehavior {
 
     @Override
     protected void interact(Coordinates creatureCoords, Coordinates coordsOfInteractedEntity, WorldMap map) {
+        Entity creature = map.getEntityAt(creatureCoords).orElse(null);
+        Entity target = map.getEntityAt(coordsOfInteractedEntity).orElse(null);
+
+        if (creature instanceof Herbivore herbivore && target instanceof Grass grass) {
+            int healingEffect = grass.getHealingEffect();
+            herbivore.heal(healingEffect);
+            Logger.info(
+                    String.format("herbivore (r: %d, c: %d) restored %d hp",
+                            coordsOfInteractedEntity.row(), coordsOfInteractedEntity.column(), healingEffect)
+            );
+        }
+
         map.removeEntityAt(coordsOfInteractedEntity);
-        map.getEntityAt(creatureCoords).ifPresent(creature -> {
-                map.removeEntityAt(creatureCoords);
-                map.putEntityAt(coordsOfInteractedEntity, creature);
-        });
+        map.removeEntityAt(creatureCoords);
+        map.putEntityAt(coordsOfInteractedEntity, creature);
     }
 
 }
