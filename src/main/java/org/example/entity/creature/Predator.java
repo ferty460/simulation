@@ -10,13 +10,17 @@ public class Predator extends Creature {
 
     private final int attack;
 
-    public Predator(int speed, double health, int attack) {
+    public Predator(int speed, int health, int attack) {
         super(speed, health, new PredatorBehavior());
         this.attack = attack;
     }
 
     public Predator() {
         this(DEFAULT_SPEED, DEFAULT_HEALTH, DEFAULT_ATTACK);
+    }
+
+    public int getAttack() {
+        return attack;
     }
 
 }

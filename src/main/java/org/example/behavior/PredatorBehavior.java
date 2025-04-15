@@ -1,9 +1,11 @@
 package org.example.behavior;
 
 import org.example.Coordinates;
+import org.example.Logger;
 import org.example.WorldMap;
 import org.example.entity.Entity;
 import org.example.entity.creature.Herbivore;
+import org.example.entity.creature.Predator;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +23,31 @@ public class PredatorBehavior extends CreatureBehavior {
 
     @Override
     protected void interact(Coordinates creatureCoords, Coordinates coordsOfInteractedEntity, WorldMap map) {
+        Entity creature = map.getEntityAt(creatureCoords).orElse(null);
+        Entity targetCreature = map.getEntityAt(coordsOfInteractedEntity).orElse(null);
 
+        int predatorRow = creatureCoords.row();
+        int predatorCol = creatureCoords.column();
+        int herbivoreRow = coordsOfInteractedEntity.row();
+        int herbivoreCol = coordsOfInteractedEntity.column();
+
+        if (creature instanceof Predator predator && targetCreature instanceof Herbivore herbivore) {
+            int damage = predator.getAttack();
+            herbivore.takeDamage(damage);
+
+            Logger.info(String.format(
+                    "Predator (r: %d, c: %d) attacked herbivore (r: %d, c: %d). Herbivore lost %d health (%d hp)",
+                    predatorRow, predatorCol, herbivoreRow, herbivoreCol, damage, herbivore.getHealth()
+            ));
+
+            if (!herbivore.isAlive()) {
+                map.removeEntityAt(coordsOfInteractedEntity);
+                map.removeEntityAt(creatureCoords);
+                map.putEntityAt(coordsOfInteractedEntity, predator);
+
+                Logger.info("Herbivore is dead.");
+            }
+        }
     }
 
 }

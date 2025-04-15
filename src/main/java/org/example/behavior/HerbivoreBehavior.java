@@ -29,10 +29,14 @@ public class HerbivoreBehavior extends CreatureBehavior {
         if (creature instanceof Herbivore herbivore && target instanceof Grass grass) {
             int healingEffect = grass.getHealingEffect();
             herbivore.heal(healingEffect);
-            Logger.info(
-                    String.format("herbivore (r: %d, c: %d) restored %d hp",
-                            coordsOfInteractedEntity.row(), coordsOfInteractedEntity.column(), healingEffect)
-            );
+
+            int herbivoreRow = coordsOfInteractedEntity.row();
+            int herbivoreCol = coordsOfInteractedEntity.column();
+
+            Logger.info(String.format(
+                "Herbivore (r: %d, c: %d) restored %d hp (%d hp)",
+                    herbivoreRow, herbivoreCol, healingEffect, herbivore.getHealth()
+            ));
         }
 
         map.removeEntityAt(coordsOfInteractedEntity);

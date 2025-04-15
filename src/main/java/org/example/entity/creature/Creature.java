@@ -7,11 +7,11 @@ import org.example.entity.Entity;
 public abstract class Creature extends Entity {
 
     private final int speed;
-    private final double maxHealth;
-    private double health;
+    private final int maxHealth;
+    private int health;
     private final Behavior behavior;
 
-    public Creature(int speed, double health, Behavior behavior) {
+    public Creature(int speed, int health, Behavior behavior) {
         this.speed = speed;
         this.health = health;
         this.maxHealth = health;
@@ -26,16 +26,24 @@ public abstract class Creature extends Entity {
         return speed;
     }
 
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public double getMaxHealth() {
+    public int getMaxHealth() {
         return maxHealth;
     }
 
     public void heal(double amount) {
-        this.health = Math.min(maxHealth, this.health + amount);
+        this.health = (int) Math.min(maxHealth, this.health + amount);
+    }
+
+    public void takeDamage(double amount) {
+        this.health = (int) Math.max(0, this.health - amount);
+    }
+
+    public boolean isAlive() {
+        return health > 0;
     }
 
 }
