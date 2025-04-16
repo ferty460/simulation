@@ -26,18 +26,13 @@ public class PredatorBehavior extends CreatureBehavior {
         Entity creature = map.getEntityAt(creatureCoords).orElse(null);
         Entity targetCreature = map.getEntityAt(coordsOfInteractedEntity).orElse(null);
 
-        int predatorRow = creatureCoords.row();
-        int predatorCol = creatureCoords.column();
-        int herbivoreRow = coordsOfInteractedEntity.row();
-        int herbivoreCol = coordsOfInteractedEntity.column();
-
         if (creature instanceof Predator predator && targetCreature instanceof Herbivore herbivore) {
             int damage = predator.getAttack();
             herbivore.takeDamage(damage);
 
             Logger.info(String.format(
-                    "Predator (r: %d, c: %d) attacked herbivore (r: %d, c: %d). Herbivore lost %d health (%d hp)",
-                    predatorRow, predatorCol, herbivoreRow, herbivoreCol, damage, herbivore.getHealth()
+                    "Predator %s attacked herbivore %s. Herbivore lost %d health (%d hp)",
+                    creatureCoords, coordsOfInteractedEntity, damage, herbivore.getHealth()
             ));
 
             if (!herbivore.isAlive()) {

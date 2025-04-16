@@ -30,12 +30,9 @@ public class HerbivoreBehavior extends CreatureBehavior {
             int healingEffect = grass.getHealingEffect();
             herbivore.heal(healingEffect);
 
-            int herbivoreRow = coordsOfInteractedEntity.row();
-            int herbivoreCol = coordsOfInteractedEntity.column();
-
             Logger.info(String.format(
-                "Herbivore (r: %d, c: %d) restored %d hp (%d hp)",
-                    herbivoreRow, herbivoreCol, healingEffect, herbivore.getHealth()
+                    "Herbivore %s restored %d hp (%d hp)",
+                    coordsOfInteractedEntity, healingEffect, herbivore.getHealth()
             ));
         }
 

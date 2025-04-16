@@ -4,6 +4,7 @@ import org.example.action.Action;
 import org.example.action.turn.MoveAction;
 import org.example.action.init.PlaceCreaturesAction;
 import org.example.action.init.PlaceStaticObjectsAction;
+import org.example.action.turn.RegrowGrassAction;
 import org.example.entity.Entity;
 import org.example.entity.EntityFactory;
 import org.example.entity.creature.Creature;
@@ -43,7 +44,8 @@ public class Main {
     private static Simulation getSimulation(WorldMap map, Renderer renderer) {
         List<Action> initActions = getInitActions();
         List<Action> turnActions = List.of(
-                new MoveAction()
+                new MoveAction(),
+                new RegrowGrassAction(STATIC_OBJECTS_DENSITY_FACTOR, WEIGHT_GRASS)
         );
 
         return new Simulation(map, renderer, initActions, turnActions);

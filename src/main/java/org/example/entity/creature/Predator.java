@@ -15,6 +15,7 @@ public class Predator extends Creature {
         this.attack = attack;
     }
 
+    // used in EntityFactory by reflection API
     public Predator() {
         this(DEFAULT_SPEED, DEFAULT_HEALTH, DEFAULT_ATTACK);
     }

@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.entity.Entity;
-import org.example.entity.creature.Creature;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,15 +18,6 @@ public class WorldMap {
         this.entities = new HashMap<>();
     }
 
-    public List<Coordinates> getEmptyBlocks() {
-        return IntStream.range(0, height)
-                .boxed()
-                .flatMap(row -> IntStream.range(0, width)
-                        .mapToObj(col -> new Coordinates(row, col)))
-                .filter(this::isEmptyBlock)
-                .collect(Collectors.toList());
-    }
-
     public Optional<Entity> getEntityAt(Coordinates coordinates) {
         return Optional.ofNullable(entities.get(coordinates));
     }
@@ -37,6 +27,10 @@ public class WorldMap {
                 .filter(entry -> entry.getValue().equals(entity))
                 .map(Map.Entry::getKey)
                 .findFirst();
+    }
+
+    public List<Entity> getAllEntities() {
+        return List.copyOf(entities.values());
     }
 
     public void putEntityAt(Coordinates coordinates, Entity entity) {
@@ -51,6 +45,15 @@ public class WorldMap {
         putEntityAt(coordinates, entity);
     }
 
+    private List<Coordinates> getEmptyBlocks() {
+        return IntStream.range(0, height)
+                .boxed()
+                .flatMap(row -> IntStream.range(0, width)
+                        .mapToObj(col -> new Coordinates(row, col)))
+                .filter(this::isEmptyBlock)
+                .collect(Collectors.toList());
+    }
+
     public void removeEntityAt(Coordinates coordinates) {
         entities.remove(coordinates);
     }
@@ -63,13 +66,6 @@ public class WorldMap {
         int row = coordinates.row();
         int col = coordinates.column();
         return row >= 0 && row < height && col >= 0 && col < width;
-    }
-
-    public List<Creature> getCreatures() {
-        return entities.values().stream()
-                .filter(entity -> entity instanceof Creature)
-                .map(entity -> (Creature) entity)
-                .toList();
     }
 
     public int getWidth() {

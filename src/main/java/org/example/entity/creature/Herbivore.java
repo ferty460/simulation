@@ -11,6 +11,7 @@ public class Herbivore extends Creature {
         super(speed, health, new HerbivoreBehavior());
     }
 
+    // used in EntityFactory by reflection API
     public Herbivore() {
         this(DEFAULT_SPEED, DEFAULT_HEALTH);
     }
