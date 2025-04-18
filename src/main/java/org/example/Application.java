@@ -26,6 +26,8 @@ public class Application {
             );
 
             mainMenu.show();
+
+            // todo: validate
             int choice = scanner.nextInt();
             mainMenu.execute(choice);
         }
