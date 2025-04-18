@@ -1,7 +1,7 @@
 package org.example.action.turn;
 
 import org.example.Logger;
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 import org.example.action.Action;
 import org.example.entity.Entity;
 import org.example.entity.static_object.Grass;

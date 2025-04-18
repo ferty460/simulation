@@ -1,6 +1,6 @@
 package org.example.action.turn;
 
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 import org.example.action.Action;
 import org.example.entity.creature.Creature;
 

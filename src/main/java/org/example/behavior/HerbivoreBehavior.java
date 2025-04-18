@@ -1,8 +1,8 @@
 package org.example.behavior;
 
-import org.example.Coordinates;
+import org.example.simulation.Coordinates;
 import org.example.Logger;
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 import org.example.entity.Entity;
 import org.example.entity.creature.Herbivore;
 import org.example.entity.static_object.Grass;

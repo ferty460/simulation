@@ -1,6 +1,6 @@
 package org.example.action;
 
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 
 public interface Action {
 

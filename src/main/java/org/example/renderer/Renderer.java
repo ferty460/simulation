@@ -1,6 +1,6 @@
 package org.example.renderer;
 
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 
 public interface Renderer {
 

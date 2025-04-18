@@ -1,6 +1,6 @@
 package org.example.entity.creature;
 
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 import org.example.behavior.Behavior;
 import org.example.entity.Entity;
 

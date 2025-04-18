@@ -1,9 +1,9 @@
 package org.example.behavior;
 
-import org.example.Coordinates;
+import org.example.simulation.Coordinates;
 import org.example.path_finder.PathFinder;
 import org.example.path_finder.PathFinderBFS;
-import org.example.WorldMap;
+import org.example.simulation.WorldMap;
 import org.example.entity.creature.Creature;
 
 import java.util.List;

@@ -1,7 +1,8 @@
 package org.example.renderer;
 
-import org.example.Coordinates;
-import org.example.WorldMap;
+import org.example.Logger;
+import org.example.simulation.Coordinates;
+import org.example.simulation.WorldMap;
 import org.example.entity.*;
 import org.example.entity.creature.Creature;
 import org.example.entity.creature.Herbivore;
@@ -14,11 +15,11 @@ public class ConsoleRenderer implements Renderer {
 
     private static final String EMPTY_BLOCK = " __ ";
 
-    private static final String TREE_SPRITE      = "\uD83C\uDF33";
-    private static final String GRASS_SPRITE     = "\uD83C\uDF3F";
-    private static final String ROCK_SPRITE      = "\uD83E\uDEA8";
+    private static final String TREE_SPRITE = "\uD83C\uDF33";
+    private static final String GRASS_SPRITE = "\uD83C\uDF3F";
+    private static final String ROCK_SPRITE = "\uD83E\uDEA8";
     private static final String HERBIVORE_SPRITE = "\uD83E\uDD8C";
-    private static final String PREDATOR_SPRITE  = "\uD83E\uDD81";
+    private static final String PREDATOR_SPRITE = "\uD83E\uDD81";
 
     @Override
     public void render(WorldMap map) {
@@ -56,7 +57,8 @@ public class ConsoleRenderer implements Renderer {
         } else if (entity instanceof Creature creature) {
             entitySprite = getSpriteForCreature(creature);
         } else {
-            throw new IllegalArgumentException("Unknown Entity: " + entity);
+            Logger.error("Unknown entity type: " + entity.getClass().getSimpleName());
+            throw new IllegalArgumentException("Unknown Entity: " + entity.getClass().getSimpleName());
         }
 
         return String.format(" %s ", entitySprite);
@@ -68,6 +70,7 @@ public class ConsoleRenderer implements Renderer {
         } else if (creature instanceof Predator) {
             return PREDATOR_SPRITE;
         } else {
+            Logger.error("Unknown creature type: " + creature.getClass().getSimpleName());
             throw new IllegalArgumentException("Unknown Creature: " + creature);
         }
     }

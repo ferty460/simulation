@@ -1,4 +1,4 @@
-package org.example;
+package org.example.simulation;
 
 import org.example.action.Action;
 import org.example.menu.ConsoleMenu;
@@ -35,6 +35,8 @@ public class Simulation {
         preload();
         renderer.render(worldMap);
 
+        isRunning = true;
+
         while (isRunning) {
             menu.show();
 
@@ -42,10 +44,6 @@ public class Simulation {
             int choice = scanner.nextInt();
             menu.execute(choice);
         }
-    }
-
-    public void stop() {
-        isRunning = false;
     }
 
     private void preload() {
@@ -59,6 +57,10 @@ public class Simulation {
             action.execute(worldMap);
         }
         renderer.render(worldMap);
+    }
+
+    public void stop() {
+        isRunning = false;
     }
 
 }

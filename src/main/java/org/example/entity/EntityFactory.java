@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import org.example.Logger;
 import org.example.entity.creature.Creature;
 
 import java.util.*;
@@ -35,6 +36,7 @@ public class EntityFactory {
                 try {
                     result.add(entry.getKey().getDeclaredConstructor().newInstance());
                 } catch (Exception e) {
+                    Logger.error("Failed to instantiate entity: " + entry.getKey().getSimpleName());
                     throw new RuntimeException("Cannot create instance of " + entry.getKey(), e);
                 }
             }
