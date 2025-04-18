@@ -8,8 +8,8 @@ public abstract class Creature extends Entity {
 
     private final int speed;
     private final int maxHealth;
-    private int health;
     private final Behavior behavior;
+    private int health;
 
     public Creature(int speed, int health, Behavior behavior) {
         this.speed = speed;
@@ -28,10 +28,6 @@ public abstract class Creature extends Entity {
 
     public int getHealth() {
         return health;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
     }
 
     public void heal(double amount) {

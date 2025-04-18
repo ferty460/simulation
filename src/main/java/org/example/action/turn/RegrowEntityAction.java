@@ -9,6 +9,8 @@ import java.util.List;
 
 public abstract class RegrowEntityAction<T extends Entity> implements Action {
 
+    private static final int NOTHING_TO_REGROW = 0;
+
     private final double entityTypeDensityFactor;
     private final double entityDensityFactor;
 
@@ -27,7 +29,7 @@ public abstract class RegrowEntityAction<T extends Entity> implements Action {
         long currentCount = getCurrentEntityCount(worldMap.getAllEntities(), getEntityClass());
         int toRegrow = requiredCount - (int) currentCount;
 
-        if (toRegrow <= 0) {
+        if (toRegrow <= NOTHING_TO_REGROW) {
             return;
         }
 

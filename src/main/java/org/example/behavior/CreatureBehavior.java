@@ -11,15 +11,19 @@ import java.util.Optional;
 
 public abstract class CreatureBehavior implements Behavior {
 
-    private static final int TARGET_INDEX = 1;
-    private static final int NEXT_MOVE_INDEX = 1;
-    private static final int INTERACTION_DISTANCE = 2;
-
     protected final PathFinder pathFinder;
 
     public CreatureBehavior() {
         this.pathFinder = new PathFinderBFS();
     }
+
+    protected abstract Optional<List<Coordinates>> findNearestTarget(WorldMap map, Coordinates from);
+
+    protected abstract void interact(
+            Coordinates creatureCoords,
+            Coordinates coordsOfInteractedEntity,
+            WorldMap map
+    );
 
     @Override
     public void act(Creature creature, WorldMap map) {
@@ -33,24 +37,20 @@ public abstract class CreatureBehavior implements Behavior {
         );
     }
 
-    protected abstract Optional<List<Coordinates>> findNearestTarget(WorldMap map, Coordinates from);
-
-    protected abstract void interact(
-            Coordinates creatureCoords,
-            Coordinates coordsOfInteractedEntity,
-            WorldMap map
-    );
-
     private void processPathToTarget(Creature creature, Coordinates from, List<Coordinates> path, WorldMap map) {
         if (path.isEmpty()) {
             return;
         }
 
-        if (path.size() == INTERACTION_DISTANCE) {
-            Coordinates target = path.get(TARGET_INDEX);
+        int interactionDistance = creature.getSpeed() + 1;
+
+        if (path.size() == interactionDistance) {
+            int targetIndex = path.size() - 1;
+            Coordinates target = path.get(targetIndex);
             interact(from, target, map);
         } else {
-            Coordinates nextMove = path.get(NEXT_MOVE_INDEX);
+            int nextMoveIndex = Math.min(creature.getSpeed(), path.size() - 1);
+            Coordinates nextMove = path.get(nextMoveIndex);
             moveToTarget(creature, from, nextMove, map);
         }
     }

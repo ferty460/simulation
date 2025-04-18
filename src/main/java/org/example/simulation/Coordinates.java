@@ -4,7 +4,7 @@ public record Coordinates(int row, int column) {
 
     @Override
     public String toString() {
-        return "(r: " + row + ", c: " + column + ")";
+        return "(r: " + (row + 1) + ", c: " + (column + 1) + ")";
     }
 
 }
