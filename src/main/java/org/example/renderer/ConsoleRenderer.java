@@ -26,6 +26,7 @@ public class ConsoleRenderer implements Renderer {
         int width = worldMap.getWidth();
         int height = worldMap.getHeight();
 
+        printColumnNumbers(width);
         for (int row = 0; row < height; row++) {
             StringBuilder line = new StringBuilder();
 
@@ -41,8 +42,18 @@ public class ConsoleRenderer implements Renderer {
                 }
             }
 
+            System.out.printf("%02d ", row);
             System.out.println(line);
         }
+        System.out.println();
+    }
+
+    private void printColumnNumbers(int width) {
+        StringBuilder header = new StringBuilder("\n   ");
+        for (int col = 0; col < width; col++) {
+            header.append(String.format(" %02d ", col));
+        }
+        System.out.println(header);
     }
 
     private String getSpriteForEntity(Entity entity) {

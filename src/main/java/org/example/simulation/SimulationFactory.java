@@ -47,7 +47,8 @@ public final class SimulationFactory {
                 new MoveAction(),
                 new HungerAction(),
                 new RegrowGrassAction(STATIC_OBJECTS_DENSITY_FACTOR, WEIGHT_GRASS),
-                new RegrowHerbivoreAction(CREATURES_DENSITY_FACTOR, WEIGHT_HERBIVORE)
+                new RegrowHerbivoreAction(CREATURES_DENSITY_FACTOR, WEIGHT_HERBIVORE),
+                new RegrowPredatorAction(CREATURES_DENSITY_FACTOR, WEIGHT_PREDATOR)
         );
 
         return new Simulation(map, renderer, initActions, turnActions);
