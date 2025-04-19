@@ -4,7 +4,9 @@ import org.example.Logger;
 import org.example.action.Action;
 import org.example.entity.Entity;
 import org.example.simulation.WorldMap;
+import org.example.simulation.WorldMapUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RegrowEntityAction<T extends Entity> implements Action {
@@ -26,7 +28,8 @@ public abstract class RegrowEntityAction<T extends Entity> implements Action {
     @Override
     public void execute(WorldMap worldMap) {
         int requiredCount = (int) (worldMap.getArea() * entityTypeDensityFactor * entityDensityFactor);
-        long currentCount = getCurrentEntityCount(worldMap.getAllEntities(), getEntityClass());
+        List<Entity> entities = new ArrayList<>(worldMap.getEntitiesMap().values());
+        long currentCount = getCurrentEntityCount(entities, getEntityClass());
         int toRegrow = requiredCount - (int) currentCount;
 
         if (toRegrow <= NOTHING_TO_REGROW) {
@@ -34,7 +37,7 @@ public abstract class RegrowEntityAction<T extends Entity> implements Action {
         }
 
         for (int i = 0; i < toRegrow; i++) {
-            worldMap.putEntityAtRandomCoordinates(createEntityInstance());
+            WorldMapUtils.putEntityAtRandom(createEntityInstance(), worldMap);
         }
 
         Logger.info(String.format("Regrew %d %s", toRegrow, getEntityName()));

@@ -4,6 +4,7 @@ import org.example.simulation.WorldMap;
 import org.example.action.Action;
 import org.example.entity.Entity;
 import org.example.entity.EntityFactory;
+import org.example.simulation.WorldMapUtils;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public abstract class PlaceEntitiesAction implements Action {
         int total = (int) (worldMap.getArea() * densityFactor);
         List<Entity> entities = createEntities(total);
         for (Entity entity : entities) {
-            worldMap.putEntityAtRandomCoordinates(entity);
+            WorldMapUtils.putEntityAtRandom(entity, worldMap);
         }
     }
 

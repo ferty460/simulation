@@ -1,11 +1,13 @@
 package org.example.entity;
 
-import org.example.Logger;
 import org.example.entity.creature.Creature;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-public class EntityFactory {
+public final class EntityFactory {
 
     private final Map<Class<? extends Entity>, Double> staticEntityTypes;
     private final Map<Class<? extends Creature>, Double> creatureTypes;
@@ -16,6 +18,9 @@ public class EntityFactory {
     ) {
         this.staticEntityTypes = staticEntityTypes;
         this.creatureTypes = creatureTypes;
+        if (staticEntityTypes.isEmpty() && creatureTypes.isEmpty()) {
+            throw new IllegalArgumentException("No entity types provided");
+        }
     }
 
     public List<Entity> createStaticEntities(int totalCount) {
@@ -33,17 +38,20 @@ public class EntityFactory {
         for (Map.Entry<Class<? extends T>, Double> entry : types.entrySet()) {
             int count = (int) Math.round((entry.getValue() / totalWeight) * totalCount);
             for (int i = 0; i < count; i++) {
-                try {
-                    result.add(entry.getKey().getDeclaredConstructor().newInstance());
-                } catch (Exception e) {
-                    Logger.error("Failed to instantiate entity: " + entry.getKey().getSimpleName());
-                    throw new RuntimeException("Cannot create instance of " + entry.getKey(), e);
-                }
+                result.add(createEntity(entry.getKey()));
             }
         }
 
         Collections.shuffle(result);
         return result;
+    }
+
+    private <T extends Entity> T createEntity(Class<? extends T> type) {
+        try {
+            return type.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot create instance of " + type, e);
+        }
     }
 
 }

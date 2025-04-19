@@ -3,9 +3,7 @@ package org.example.simulation;
 import org.example.action.Action;
 import org.example.action.init.PlaceCreaturesAction;
 import org.example.action.init.PlaceStaticObjectsAction;
-import org.example.action.turn.MoveAction;
-import org.example.action.turn.RegrowGrassAction;
-import org.example.action.turn.RegrowHerbivoreAction;
+import org.example.action.turn.*;
 import org.example.entity.Entity;
 import org.example.entity.EntityFactory;
 import org.example.entity.creature.Creature;
@@ -47,6 +45,7 @@ public final class SimulationFactory {
         List<Action> initActions = getInitActions();
         List<Action> turnActions = List.of(
                 new MoveAction(),
+                new HungerAction(),
                 new RegrowGrassAction(STATIC_OBJECTS_DENSITY_FACTOR, WEIGHT_GRASS),
                 new RegrowHerbivoreAction(CREATURES_DENSITY_FACTOR, WEIGHT_HERBIVORE)
         );

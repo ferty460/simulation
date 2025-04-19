@@ -22,27 +22,49 @@ public class PredatorBehavior extends CreatureBehavior {
     }
 
     @Override
-    protected void interact(Coordinates creatureCoords, Coordinates coordsOfInteractedEntity, WorldMap map) {
-        Entity creature = map.getEntityAt(creatureCoords).orElse(null);
-        Entity targetCreature = map.getEntityAt(coordsOfInteractedEntity).orElse(null);
+    protected void interact(Coordinates predatorCoords, Coordinates herbivoreCoords, WorldMap map) {
+        Optional<Entity> predatorOpt = map.getEntityAt(predatorCoords);
+        Optional<Entity> herbivoreOpt = map.getEntityAt(herbivoreCoords);
 
-        if (creature instanceof Predator predator && targetCreature instanceof Herbivore herbivore) {
+        if (predatorOpt.isEmpty() || herbivoreOpt.isEmpty()) {
+            return;
+        }
+
+        if (predatorOpt.get() instanceof Predator predator && herbivoreOpt.get() instanceof Herbivore herbivore) {
             int damage = predator.getAttack();
             herbivore.takeDamage(damage);
 
             Logger.info(String.format(
                     "Predator %s attacked herbivore %s. Herbivore lost %d health (%d hp)",
-                    creatureCoords, coordsOfInteractedEntity, damage, herbivore.getHealth()
+                    predatorCoords, herbivoreCoords, damage, herbivore.getHealth()
             ));
 
+            // todo: пересмотреть механику смерти
             if (!herbivore.isAlive()) {
-                map.removeEntityAt(coordsOfInteractedEntity);
-                map.removeEntityAt(creatureCoords);
-                map.putEntityAt(coordsOfInteractedEntity, predator);
-
-                Logger.info("Herbivore is dead.");
+                handleHerbivoreDeath(predator, herbivore, predatorCoords, herbivoreCoords, map);
             }
         }
+    }
+
+    private void handleHerbivoreDeath(
+            Predator predator,
+            Herbivore herbivore,
+            Coordinates predatorCoords,
+            Coordinates herbivoreCoords,
+            WorldMap map
+    ) {
+        map.removeEntityAt(herbivoreCoords);
+        map.removeEntityAt(predatorCoords);
+        map.putEntityAt(herbivoreCoords, predator);
+
+        int healingEffect = herbivore.getNutritionalValue();
+        predator.heal(healingEffect);
+
+        Logger.info(String.format(
+                "Predator %s restored %d health (%d hp) by eating herbivore",
+                herbivoreCoords, healingEffect, predator.getHealth()
+        ));
+        Logger.info("Herbivore is dead.");
     }
 
 }

@@ -44,7 +44,7 @@ public abstract class CreatureBehavior implements Behavior {
 
         int interactionDistance = creature.getSpeed() + 1;
 
-        if (path.size() == interactionDistance) {
+        if (path.size() <= interactionDistance) {
             int targetIndex = path.size() - 1;
             Coordinates target = path.get(targetIndex);
             interact(from, target, map);

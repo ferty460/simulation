@@ -3,6 +3,7 @@ package org.example.path_finder;
 import org.example.simulation.Coordinates;
 import org.example.simulation.WorldMap;
 import org.example.entity.Entity;
+import org.example.simulation.WorldMapUtils;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -25,7 +26,7 @@ public class PathFinderBFS implements PathFinder {
 
     @Override
     public List<Coordinates> find(
-            WorldMap map,
+            WorldMap worldMap,
             Coordinates start,
             Predicate<Entity> targetCondition
     ) {
@@ -45,11 +46,11 @@ public class PathFinderBFS implements PathFinder {
                         current.column() + dir[COLUMN_INDEX]
                 );
 
-                if (!map.isWithinBounds(neighbor) || visited.contains(neighbor)) {
+                if (!WorldMapUtils.isWithinBounds(neighbor, worldMap) || visited.contains(neighbor)) {
                     continue;
                 }
 
-                Optional<Entity> entityOpt = map.getEntityAt(neighbor);
+                Optional<Entity> entityOpt = worldMap.getEntityAt(neighbor);
 
                 if (entityOpt.isPresent()) {
                     if (targetCondition.test(entityOpt.get())) {

@@ -1,15 +1,15 @@
 package org.example.renderer;
 
-import org.example.Logger;
-import org.example.simulation.Coordinates;
-import org.example.simulation.WorldMap;
-import org.example.entity.*;
+import org.example.entity.Entity;
 import org.example.entity.creature.Creature;
 import org.example.entity.creature.Herbivore;
 import org.example.entity.creature.Predator;
 import org.example.entity.static_object.Grass;
 import org.example.entity.static_object.Rock;
 import org.example.entity.static_object.Tree;
+import org.example.simulation.Coordinates;
+import org.example.simulation.WorldMap;
+import org.example.simulation.WorldMapUtils;
 
 public class ConsoleRenderer implements Renderer {
 
@@ -22,9 +22,9 @@ public class ConsoleRenderer implements Renderer {
     private static final String PREDATOR_SPRITE = "\uD83E\uDD81";
 
     @Override
-    public void render(WorldMap map) {
-        int width = map.getWidth();
-        int height = map.getHeight();
+    public void render(WorldMap worldMap) {
+        int width = worldMap.getWidth();
+        int height = worldMap.getHeight();
 
         for (int row = 0; row < height; row++) {
             StringBuilder line = new StringBuilder();
@@ -32,10 +32,10 @@ public class ConsoleRenderer implements Renderer {
             for (int column = 0; column < width; column++) {
                 Coordinates coordinates = new Coordinates(row, column);
 
-                if (map.isEmptyBlock(coordinates)) {
+                if (WorldMapUtils.isEmptyBlock(coordinates, worldMap)) {
                     line.append(EMPTY_BLOCK);
                 } else {
-                    map.getEntityAt(coordinates).ifPresent(entity ->
+                    worldMap.getEntityAt(coordinates).ifPresent(entity ->
                             line.append(getSpriteForEntity(entity))
                     );
                 }
@@ -57,7 +57,6 @@ public class ConsoleRenderer implements Renderer {
         } else if (entity instanceof Creature creature) {
             entitySprite = getSpriteForCreature(creature);
         } else {
-            Logger.error("Unknown entity type: " + entity.getClass().getSimpleName());
             throw new IllegalArgumentException("Unknown Entity: " + entity.getClass().getSimpleName());
         }
 
@@ -70,7 +69,6 @@ public class ConsoleRenderer implements Renderer {
         } else if (creature instanceof Predator) {
             return PREDATOR_SPRITE;
         } else {
-            Logger.error("Unknown creature type: " + creature.getClass().getSimpleName());
             throw new IllegalArgumentException("Unknown Creature: " + creature);
         }
     }
