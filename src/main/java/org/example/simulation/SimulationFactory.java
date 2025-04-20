@@ -1,5 +1,7 @@
 package org.example.simulation;
 
+import org.example.Config;
+import org.example.Logger;
 import org.example.action.Action;
 import org.example.action.init.PlaceCreaturesAction;
 import org.example.action.init.PlaceStaticObjectsAction;
@@ -20,23 +22,29 @@ import java.util.Map;
 
 public final class SimulationFactory {
 
-    private static final int MAP_ROWS = 10;
-    private static final int MAP_COLUMNS = 10;
+    private static final double CREATURES_DENSITY_FACTOR = Config.getDouble("spawn.creatures");
+    private static final double STATIC_OBJECTS_DENSITY_FACTOR = Config.getDouble("spawn.static_objects");
 
-    private static final double CREATURES_DENSITY_FACTOR = 0.04;
-    private static final double STATIC_OBJECTS_DENSITY_FACTOR = 0.15;
-
-    private static final double WEIGHT_ROCK = 0.3;
-    private static final double WEIGHT_GRASS = 0.4;
-    private static final double WEIGHT_TREE = 0.3;
-    private static final double WEIGHT_HERBIVORE = 0.6;
-    private static final double WEIGHT_PREDATOR = 0.4;
+    private static final double WEIGHT_ROCK = Config.getDouble("spawn.rock");
+    private static final double WEIGHT_GRASS = Config.getDouble("spawn.grass");
+    private static final double WEIGHT_TREE = Config.getDouble("spawn.tree");
+    private static final double WEIGHT_HERBIVORE = Config.getDouble("spawn.herbivore");
+    private static final double WEIGHT_PREDATOR = Config.getDouble("spawn.predator");
 
     private SimulationFactory() {}
 
     public static Simulation create() {
-        WorldMap map = new WorldMap(MAP_ROWS, MAP_COLUMNS);
+        int mapRows = Config.getInt("map.rows");
+        int mapColumns = Config.getInt("map.columns");
+
+        WorldMap map = new WorldMap(mapRows, mapColumns);
         Renderer renderer = new ConsoleRenderer();
+
+        if (Config.getBoolean("logging.enabled")) {
+            Logger.enable();
+        } else {
+            Logger.disable();
+        }
 
         return getSimulation(map, renderer);
     }
