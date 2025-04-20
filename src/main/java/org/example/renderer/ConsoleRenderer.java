@@ -54,7 +54,7 @@ public class ConsoleRenderer implements Renderer {
     }
 
     @Override
-    public void renderInfo(WorldMap worldMap) {
+    public void printInfo(WorldMap worldMap) {
         List<Creature> creatures = WorldMapUtils.getCreatures(worldMap);
         System.out.println("\nWorld map info:");
 
@@ -75,6 +75,11 @@ public class ConsoleRenderer implements Renderer {
                 "\nDamage from hunger by tick:\n%s - %d dmg\n%s - %d dmg\n\n",
                 PREDATOR_SPRITE, predatorHungerDamage, HERBIVORE_SPRITE, herbivoreHungerDamage
         );
+    }
+
+    @Override
+    public void printCurrentTurn(int turn) {
+        System.out.println("\nCurrent turn: " + turn);
     }
 
     private void printColumnNumbers(int width) {

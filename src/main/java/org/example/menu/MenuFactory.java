@@ -21,8 +21,9 @@ public final class MenuFactory {
         menu.setTitle("Simulation menu");
 
         menu.addItem(1, "Next tick", simulation::process);
-        menu.addItem(2, "Info", simulation::getInfo);
-        menu.addItem(3, "Exit", simulation::stop);
+        menu.addItem(2, "Infinity", simulation::startInfiniteSimulation);
+        menu.addItem(3, "Info", simulation::getInfo);
+        menu.addItem(4, "Exit", simulation::stop);
 
         return menu;
     }

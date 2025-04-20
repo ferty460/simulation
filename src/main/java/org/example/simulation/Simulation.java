@@ -11,14 +11,16 @@ import java.util.Scanner;
 
 public class Simulation {
 
+    private static final int INITIAL_TURN = 1;
+
     private final WorldMap worldMap;
     private final Renderer renderer;
     private final List<Action> initActions;
     private final List<Action> turnActions;
-
     private final Menu menu;
     private final Scanner scanner;
 
+    private int currentTurn = INITIAL_TURN;
     private boolean isRunning;
 
     public Simulation(WorldMap worldMap, Renderer renderer, List<Action> initActions, List<Action> turnActions) {
@@ -34,6 +36,7 @@ public class Simulation {
     public void start() {
         preload();
         renderer.render(worldMap);
+        renderer.printCurrentTurn(currentTurn++);
 
         isRunning = true;
 
@@ -43,6 +46,36 @@ public class Simulation {
             // todo: validate
             int choice = scanner.nextInt();
             menu.execute(choice);
+        }
+    }
+
+    public void startInfiniteSimulation() {
+        Thread infiniteSimulation = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                process();
+                System.out.println("Нажмите Enter для остановки...");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+
+        infiniteSimulation.start();
+
+        scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+
+        infiniteSimulation.interrupt();
+
+        try {
+            infiniteSimulation.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -57,10 +90,11 @@ public class Simulation {
             action.execute(worldMap);
         }
         renderer.render(worldMap);
+        renderer.printCurrentTurn(currentTurn++);
     }
 
     public void getInfo() {
-        renderer.renderInfo(worldMap);
+        renderer.printInfo(worldMap);
     }
 
     public void stop() {

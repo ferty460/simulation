@@ -6,6 +6,8 @@ public interface Renderer {
 
     void render(WorldMap map);
 
-    void renderInfo(WorldMap worldMap);
+    void printInfo(WorldMap worldMap);
+
+    void printCurrentTurn(int turn);
 
 }
