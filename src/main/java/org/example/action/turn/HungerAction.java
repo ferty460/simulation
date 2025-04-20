@@ -16,11 +16,6 @@ public class HungerAction implements Action {
             int hungerDamage = creature.getEnergyConsumption();
             creature.takeDamage(hungerDamage);
 
-            Logger.info(String.format(
-                    "%s lost %d hp from starvation (%d hp)",
-                    creatureName, hungerDamage, creature.getHealth())
-            );
-
             // todo: пересмотреть механику смерти
             if (!creature.isAlive()) {
                 worldMap.getCoordinatesOfEntity(creature).ifPresent(worldMap::removeEntityAt);

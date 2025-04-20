@@ -27,7 +27,7 @@ public abstract class RegrowEntityAction<T extends Entity> implements Action {
 
     @Override
     public void execute(WorldMap worldMap) {
-        int requiredCount = (int) (worldMap.getArea() * entityTypeDensityFactor * entityDensityFactor);
+        int requiredCount = (int) Math.round(worldMap.getArea() * entityTypeDensityFactor * entityDensityFactor);
         List<Entity> entities = new ArrayList<>(worldMap.getEntitiesMap().values());
         long currentCount = getCurrentEntityCount(entities, getEntityClass());
         int toRegrow = requiredCount - (int) currentCount;

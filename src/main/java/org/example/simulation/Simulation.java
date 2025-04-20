@@ -59,6 +59,10 @@ public class Simulation {
         renderer.render(worldMap);
     }
 
+    public void getInfo() {
+        renderer.renderInfo(worldMap);
+    }
+
     public void stop() {
         isRunning = false;
     }

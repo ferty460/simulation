@@ -4,8 +4,8 @@ import org.example.entity.creature.Predator;
 
 public class RegrowPredatorAction extends RegrowEntityAction<Predator> {
 
-    public RegrowPredatorAction(double creaturesDensityFactor, double herbivoreDensityFactor) {
-        super(creaturesDensityFactor, herbivoreDensityFactor);
+    public RegrowPredatorAction(double creaturesDensityFactor, double predatorDensityFactor) {
+        super(creaturesDensityFactor, predatorDensityFactor);
     }
 
     @Override

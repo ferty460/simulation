@@ -7,8 +7,7 @@ public final class MenuFactory {
     private MenuFactory() {
     }
 
-    public static Menu createMainMenu(Runnable onStart, Runnable onSettings, Runnable onExit) {
-        Menu menu = new ConsoleMenu();
+    public static Menu createMainMenu(Runnable onStart, Runnable onSettings, Runnable onExit, Menu menu) {
         menu.setTitle("Main Menu");
 
         menu.addItem(1, "Start simulation", onStart);
@@ -22,7 +21,8 @@ public final class MenuFactory {
         menu.setTitle("Simulation menu");
 
         menu.addItem(1, "Next tick", simulation::process);
-        menu.addItem(2, "Exit", simulation::stop);
+        menu.addItem(2, "Info", simulation::getInfo);
+        menu.addItem(3, "Exit", simulation::stop);
 
         return menu;
     }

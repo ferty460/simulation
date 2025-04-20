@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.menu.ConsoleMenu;
 import org.example.menu.Menu;
 import org.example.menu.MenuFactory;
 import org.example.simulation.Simulation;
@@ -22,7 +23,8 @@ public class Application {
             Menu mainMenu = MenuFactory.createMainMenu(
                     this::startSimulation,
                     this::openSettings,
-                    this::exit
+                    this::exit,
+                    new ConsoleMenu()
             );
 
             mainMenu.show();

@@ -6,4 +6,6 @@ public interface Renderer {
 
     void render(WorldMap map);
 
+    void renderInfo(WorldMap worldMap);
+
 }

@@ -25,8 +25,4 @@ public class Logger {
         log(Type.INFO, message);
     }
 
-    public static void error(String message) {
-        log(Type.ERROR, message);
-    }
-
 }

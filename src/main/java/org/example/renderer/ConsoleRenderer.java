@@ -1,5 +1,6 @@
 package org.example.renderer;
 
+import org.example.Config;
 import org.example.entity.Entity;
 import org.example.entity.creature.Creature;
 import org.example.entity.creature.Herbivore;
@@ -10,6 +11,8 @@ import org.example.entity.static_object.Tree;
 import org.example.simulation.Coordinates;
 import org.example.simulation.WorldMap;
 import org.example.simulation.WorldMapUtils;
+
+import java.util.List;
 
 public class ConsoleRenderer implements Renderer {
 
@@ -27,6 +30,7 @@ public class ConsoleRenderer implements Renderer {
         int height = worldMap.getHeight();
 
         printColumnNumbers(width);
+
         for (int row = 0; row < height; row++) {
             StringBuilder line = new StringBuilder();
 
@@ -45,7 +49,32 @@ public class ConsoleRenderer implements Renderer {
             System.out.printf("%02d ", row);
             System.out.println(line);
         }
+
         System.out.println();
+    }
+
+    @Override
+    public void renderInfo(WorldMap worldMap) {
+        List<Creature> creatures = WorldMapUtils.getCreatures(worldMap);
+        System.out.println("\nWorld map info:");
+
+        for (Creature creature : creatures) {
+            String creatureSprite = getSpriteForEntity(creature);
+            int health = creature.getHealth();
+            int maxHealth = creature.getMaxHealth();
+
+            worldMap.getCoordinatesOfEntity(creature).ifPresent(coordinates ->
+                    System.out.printf("%s at %s - hp: %d/%d\n", creatureSprite, coordinates, health, maxHealth)
+            );
+        }
+
+        int predatorHungerDamage = Config.getInt("predator.energyConsumption");
+        int herbivoreHungerDamage = Config.getInt("herbivore.energyConsumption");
+
+        System.out.printf(
+                "\nDamage from hunger by tick:\n%s - %d dmg\n%s - %d dmg\n\n",
+                PREDATOR_SPRITE, predatorHungerDamage, HERBIVORE_SPRITE, herbivoreHungerDamage
+        );
     }
 
     private void printColumnNumbers(int width) {

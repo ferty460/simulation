@@ -28,6 +28,10 @@ public abstract class Creature extends Entity {
         return speed;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
     public int getHealth() {
         return health;
     }
