@@ -21,30 +21,23 @@ public class Application {
     public void launch() {
         while (isRunning) {
             Menu mainMenu = MenuFactory.createMainMenu(
-                    this::startSimulation,
-                    this::openSettings,
-                    this::exit,
+                    this,
                     new ConsoleMenu()
             );
 
             mainMenu.show();
 
-            // todo: validate
-            int choice = scanner.nextInt();
+            String choice = scanner.nextLine();
             mainMenu.execute(choice);
         }
     }
 
-    private void startSimulation() {
+    public void startSimulation() {
         Simulation simulation = SimulationFactory.create();
         simulation.start();
     }
 
-    private void openSettings() {
-        System.out.println("Settings are not implemented yet.");
-    }
-
-    private void exit() {
+    public void exit() {
         isRunning = false;
     }
 

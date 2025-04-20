@@ -1,6 +1,5 @@
 package org.example.simulation;
 
-import org.example.Config;
 import org.example.Logger;
 import org.example.action.Action;
 import org.example.action.init.PlaceCreaturesAction;
@@ -20,27 +19,19 @@ import org.example.renderer.Renderer;
 import java.util.List;
 import java.util.Map;
 
+import static org.example.ConfigValues.*;
+
 public final class SimulationFactory {
 
-    private static final double CREATURES_DENSITY_FACTOR = Config.getDouble("spawn.creatures");
-    private static final double STATIC_OBJECTS_DENSITY_FACTOR = Config.getDouble("spawn.static_objects");
-
-    private static final double WEIGHT_ROCK = Config.getDouble("spawn.rock");
-    private static final double WEIGHT_GRASS = Config.getDouble("spawn.grass");
-    private static final double WEIGHT_TREE = Config.getDouble("spawn.tree");
-    private static final double WEIGHT_HERBIVORE = Config.getDouble("spawn.herbivore");
-    private static final double WEIGHT_PREDATOR = Config.getDouble("spawn.predator");
-
-    private SimulationFactory() {}
+    private SimulationFactory() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     public static Simulation create() {
-        int mapRows = Config.getInt("map.rows");
-        int mapColumns = Config.getInt("map.columns");
-
-        WorldMap map = new WorldMap(mapRows, mapColumns);
+        WorldMap map = new WorldMap(MAP_ROWS, MAP_COLUMNS);
         Renderer renderer = new ConsoleRenderer();
 
-        if (Config.getBoolean("logging.enabled")) {
+        if (LOGGING_IS_ENABLED) {
             Logger.enable();
         } else {
             Logger.disable();

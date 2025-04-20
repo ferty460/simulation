@@ -6,6 +6,7 @@ import org.example.simulation.WorldMap;
 import org.example.entity.Entity;
 import org.example.entity.creature.Herbivore;
 import org.example.entity.creature.Predator;
+import org.example.simulation.WorldMapUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,32 +40,21 @@ public class PredatorBehavior extends CreatureBehavior {
                     predatorCoords, herbivoreCoords, damage, herbivore.getHealth()
             ));
 
-            // todo: пересмотреть механику смерти
             if (!herbivore.isAlive()) {
-                handleHerbivoreDeath(predator, herbivore, predatorCoords, herbivoreCoords, map);
+                WorldMapUtils.handleDeath(herbivore, map);
+
+                map.removeEntityAt(predatorCoords);
+                map.putEntityAt(herbivoreCoords, predator);
+
+                int healingEffect = herbivore.getNutritionalValue();
+                predator.heal(healingEffect);
+
+                Logger.info(String.format(
+                        "Predator %s restored %d health (%d hp) by eating herbivore",
+                        herbivoreCoords, healingEffect, predator.getHealth()
+                ));
             }
         }
-    }
-
-    private void handleHerbivoreDeath(
-            Predator predator,
-            Herbivore herbivore,
-            Coordinates predatorCoords,
-            Coordinates herbivoreCoords,
-            WorldMap map
-    ) {
-        map.removeEntityAt(herbivoreCoords);
-        map.removeEntityAt(predatorCoords);
-        map.putEntityAt(herbivoreCoords, predator);
-
-        int healingEffect = herbivore.getNutritionalValue();
-        predator.heal(healingEffect);
-
-        Logger.info(String.format(
-                "Predator %s restored %d health (%d hp) by eating herbivore",
-                herbivoreCoords, healingEffect, predator.getHealth()
-        ));
-        Logger.info("Herbivore is dead.");
     }
 
 }

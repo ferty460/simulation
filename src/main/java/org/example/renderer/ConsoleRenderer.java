@@ -1,6 +1,5 @@
 package org.example.renderer;
 
-import org.example.Config;
 import org.example.entity.Entity;
 import org.example.entity.creature.Creature;
 import org.example.entity.creature.Herbivore;
@@ -67,19 +66,11 @@ public class ConsoleRenderer implements Renderer {
                     System.out.printf("%s at %s - hp: %d/%d\n", creatureSprite, coordinates, health, maxHealth)
             );
         }
-
-        int predatorHungerDamage = Config.getInt("predator.energyConsumption");
-        int herbivoreHungerDamage = Config.getInt("herbivore.energyConsumption");
-
-        System.out.printf(
-                "\nDamage from hunger by tick:\n%s - %d dmg\n%s - %d dmg\n\n",
-                PREDATOR_SPRITE, predatorHungerDamage, HERBIVORE_SPRITE, herbivoreHungerDamage
-        );
     }
 
     @Override
     public void printCurrentTurn(int turn) {
-        System.out.println("\nCurrent turn: " + turn);
+        System.out.println("Current turn: " + turn + "\n");
     }
 
     private void printColumnNumbers(int width) {

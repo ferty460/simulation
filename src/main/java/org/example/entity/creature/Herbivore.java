@@ -3,16 +3,18 @@ package org.example.entity.creature;
 import org.example.Config;
 import org.example.behavior.HerbivoreBehavior;
 
+import static org.example.ConfigValues.*;
+
 public class Herbivore extends Creature {
 
     private final int nutritionalValue;
 
     public Herbivore() {
         this(
-                Config.getInt("herbivore.speed"),
-                Config.getInt("herbivore.health"),
-                Config.getInt("herbivore.energyConsumption"),
-                Config.getInt("herbivore.nutritionalValue")
+                Config.getInt("herbivore.speed", MIN_SPEED, MAX_SPEED),
+                Config.getInt("herbivore.health", MIN_HEALTH, MAX_HEALTH),
+                Config.getInt("herbivore.energyConsumption", MIN_ENERGY_CONSUMPTION, MAX_ENERGY_CONSUMPTION),
+                Config.getInt("herbivore.nutritionalValue", MIN_NUTRITIONAL_VALUE, MAX_NUTRITIONAL_VALUE)
         );
     }
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ConsoleMenu implements Menu {
 
-    private final Map<Integer, MenuItem> items;
+    private final Map<String, MenuItem> items;
     private String title;
 
     public ConsoleMenu() {
@@ -18,20 +18,20 @@ public class ConsoleMenu implements Menu {
     }
 
     @Override
-    public void addItem(int key, String description, Runnable action) {
+    public void addItem(String key, String description, Runnable action) {
         items.put(key, new MenuItem(description, action));
     }
 
     @Override
     public void show() {
         System.out.println(title);
-        for (Map.Entry<Integer, MenuItem> entry : items.entrySet()) {
+        for (Map.Entry<String, MenuItem> entry : items.entrySet()) {
             System.out.println(entry.getKey() + ". " + entry.getValue().label());
         }
     }
 
     @Override
-    public void execute(int choice) {
+    public void execute(String choice) {
         if (items.containsKey(choice)) {
             items.get(choice).action().run();
         } else {

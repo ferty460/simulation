@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Simulation {
 
     private static final int INITIAL_TURN = 1;
+    private static final int DELAY = 1000;
 
     private final WorldMap worldMap;
     private final Renderer renderer;
@@ -43,8 +44,7 @@ public class Simulation {
         while (isRunning) {
             menu.show();
 
-            // todo: validate
-            int choice = scanner.nextInt();
+            String choice = scanner.nextLine();
             menu.execute(choice);
         }
     }
@@ -53,10 +53,10 @@ public class Simulation {
         Thread infiniteSimulation = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 process();
-                System.out.println("Нажмите Enter для остановки...");
+                System.out.println("Press Enter to stop...");
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(DELAY);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -71,12 +71,6 @@ public class Simulation {
         }
 
         infiniteSimulation.interrupt();
-
-        try {
-            infiniteSimulation.join();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     private void preload() {

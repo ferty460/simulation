@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public abstract class CreatureBehavior implements Behavior {
 
+    private static final int INTERACTION_DISTANCE_OFFSET = 1;
+    private static final int LAST_ELEMENT_OFFSET = 1;
+
     protected final PathFinder pathFinder;
 
     public CreatureBehavior() {
@@ -42,14 +45,14 @@ public abstract class CreatureBehavior implements Behavior {
             return;
         }
 
-        int interactionDistance = creature.getSpeed() + 1;
+        int interactionDistance = creature.getSpeed() + INTERACTION_DISTANCE_OFFSET;
 
         if (path.size() <= interactionDistance) {
-            int targetIndex = path.size() - 1;
+            int targetIndex = path.size() - LAST_ELEMENT_OFFSET;
             Coordinates target = path.get(targetIndex);
             interact(from, target, map);
         } else {
-            int nextMoveIndex = Math.min(creature.getSpeed(), path.size() - 1);
+            int nextMoveIndex = Math.min(creature.getSpeed(), path.size() - LAST_ELEMENT_OFFSET);
             Coordinates nextMove = path.get(nextMoveIndex);
             moveToTarget(creature, from, nextMove, map);
         }
