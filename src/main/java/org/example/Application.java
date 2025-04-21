@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.menu.ConsoleMenu;
-import org.example.menu.Menu;
-import org.example.menu.MenuFactory;
+import org.example.ui.menu.ConsoleMenu;
+import org.example.ui.menu.Menu;
+import org.example.ui.menu.MenuFactory;
 import org.example.simulation.Simulation;
 import org.example.simulation.SimulationFactory;
 

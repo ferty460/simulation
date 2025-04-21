@@ -1,4 +1,4 @@
-package org.example;
+package org.example.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,10 +18,10 @@ public final class Config {
             if (input != null) {
                 PROPERTIES.load(input);
             } else {
-                throw new RuntimeException("config.properties not found in resources");
+                throw new RuntimeException(PROPERTIES_FILE + " not found in resources");
             }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load config.properties", e);
+            throw new RuntimeException("Failed to load " + PROPERTIES_FILE, e);
         }
     }
 

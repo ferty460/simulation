@@ -10,9 +10,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.example.ConfigValues.MIN_MAP_SIZE;
-
 public final class WorldMapUtils {
+
+    public static final int MIN_ROW_INDEX = 0;
+    public static final int MIN_COLUMN_INDEX = 0;
 
     private static final int INITIAL_ROW = 0;
     private static final int INITIAL_COL = 0;
@@ -52,7 +53,10 @@ public final class WorldMapUtils {
     public static boolean isWithinBounds(Coordinates coordinates, WorldMap worldMap) {
         int row = coordinates.row();
         int col = coordinates.column();
-        return row >= MIN_MAP_SIZE && row < worldMap.getHeight() && col >= MIN_MAP_SIZE && col < worldMap.getWidth();
+        return row >= MIN_ROW_INDEX &&
+                row < worldMap.getHeight() &&
+                col >= MIN_COLUMN_INDEX &&
+                col < worldMap.getWidth();
     }
 
     public static void handleDeath(Creature creature, WorldMap map) {

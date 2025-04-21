@@ -1,10 +1,10 @@
 package org.example.simulation;
 
 import org.example.action.Action;
-import org.example.menu.ConsoleMenu;
-import org.example.menu.Menu;
-import org.example.menu.MenuFactory;
-import org.example.renderer.Renderer;
+import org.example.ui.menu.ConsoleMenu;
+import org.example.ui.menu.Menu;
+import org.example.ui.menu.MenuFactory;
+import org.example.ui.renderer.Renderer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -66,9 +66,6 @@ public class Simulation {
         infiniteSimulation.start();
 
         scanner.nextLine();
-        if (scanner.hasNextLine()) {
-            scanner.nextLine();
-        }
 
         infiniteSimulation.interrupt();
     }
@@ -83,6 +80,7 @@ public class Simulation {
         for (Action action : turnActions) {
             action.execute(worldMap);
         }
+
         renderer.render(worldMap);
         renderer.printCurrentTurn(currentTurn++);
     }

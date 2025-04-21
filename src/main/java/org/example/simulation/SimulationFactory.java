@@ -13,13 +13,13 @@ import org.example.entity.creature.Predator;
 import org.example.entity.static_object.Grass;
 import org.example.entity.static_object.Rock;
 import org.example.entity.static_object.Tree;
-import org.example.renderer.ConsoleRenderer;
-import org.example.renderer.Renderer;
+import org.example.ui.renderer.ConsoleRenderer;
+import org.example.ui.renderer.Renderer;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.example.ConfigValues.*;
+import static org.example.config.ConfigValues.*;
 
 public final class SimulationFactory {
 

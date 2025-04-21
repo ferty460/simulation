@@ -1,9 +1,9 @@
 package org.example.entity.creature;
 
-import org.example.Config;
+import org.example.config.Config;
 import org.example.behavior.HerbivoreBehavior;
 
-import static org.example.ConfigValues.*;
+import static org.example.config.ConfigValues.*;
 
 public class Herbivore extends Creature {
 

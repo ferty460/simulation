@@ -6,11 +6,11 @@ import org.example.entity.Entity;
 
 public abstract class Creature extends Entity {
 
+    private int health;
     private final int speed;
     private final int maxHealth;
     private final int energyConsumption;
     private final Behavior behavior;
-    private int health;
 
     public Creature(int speed, int health, int energyConsumption, Behavior behavior) {
         this.speed = speed;

@@ -1,4 +1,4 @@
-package org.example.renderer;
+package org.example.ui.renderer;
 
 import org.example.entity.Entity;
 import org.example.entity.creature.Creature;
@@ -66,6 +66,7 @@ public class ConsoleRenderer implements Renderer {
                     System.out.printf("%s at %s - hp: %d/%d\n", creatureSprite, coordinates, health, maxHealth)
             );
         }
+        System.out.println();
     }
 
     @Override
@@ -82,21 +83,23 @@ public class ConsoleRenderer implements Renderer {
     }
 
     private String getSpriteForEntity(Entity entity) {
-        String entitySprite;
-
         if (entity instanceof Grass) {
-            entitySprite = GRASS_SPRITE;
-        } else if (entity instanceof Rock) {
-            entitySprite = ROCK_SPRITE;
-        } else if (entity instanceof Tree) {
-            entitySprite = TREE_SPRITE;
-        } else if (entity instanceof Creature creature) {
-            entitySprite = getSpriteForCreature(creature);
+            return String.format(" %s ", GRASS_SPRITE);
+        }
+
+        if (entity instanceof Rock) {
+            return String.format(" %s ", ROCK_SPRITE);
+        }
+
+        if (entity instanceof Tree) {
+            return String.format(" %s ", TREE_SPRITE);
+        }
+
+        if (entity instanceof Creature creature) {
+            return String.format(" %s ", getSpriteForCreature(creature));
         } else {
             throw new IllegalArgumentException("Unknown Entity: " + entity.getClass().getSimpleName());
         }
-
-        return String.format(" %s ", entitySprite);
     }
 
     private String getSpriteForCreature(Creature creature) {

@@ -1,4 +1,4 @@
-package org.example.menu;
+package org.example.ui.menu;
 
 import org.example.Application;
 import org.example.simulation.Simulation;

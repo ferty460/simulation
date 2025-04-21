@@ -1,4 +1,4 @@
-package org.example.renderer;
+package org.example.ui.renderer;
 
 import org.example.simulation.WorldMap;
 
