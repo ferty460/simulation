@@ -1,10 +1,12 @@
 package org.example.entity.creature;
 
-import org.example.simulation.WorldMap;
 import org.example.behavior.Behavior;
 import org.example.entity.Entity;
+import org.example.simulation.WorldMap;
 
 public abstract class Creature extends Entity {
+
+    private static final int ZERO_HEALTH = 0;
 
     private int health;
     private final int speed;
@@ -45,11 +47,11 @@ public abstract class Creature extends Entity {
     }
 
     public void takeDamage(double amount) {
-        this.health = (int) Math.max(0, this.health - amount);
+        this.health = (int) Math.max(ZERO_HEALTH, this.health - amount);
     }
 
     public boolean isAlive() {
-        return health > 0;
+        return health > ZERO_HEALTH;
     }
 
 }
