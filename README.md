@@ -120,7 +120,7 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/ferty460/hangman
+   git clone https://github.com/ferty460/simulation
    ```
 
 2. Соберите проект с помощью Maven:
